@@ -1,16 +1,44 @@
 name: Publish
+
+# Publishes the server/ package to PyPI via trusted publishing (OIDC): no
+# API token stored in GitHub. Runs when a release is published; re-runs
+# upload only files PyPI does not yet have (skip-existing).
+
 on:
-  push:
-    tags: ["v*"]
+  release:
+    types: [published]
+  workflow_dispatch:
 
 jobs:
-  pypi:
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: astral-sh/setup-uv@v5
-      - run: uv build --project server
-      - name: Publish
-        run: uv publish --project server dist/*
-        env:
-          UV_PUBLISH_TOKEN: ${{ secrets.PYPI_TOKEN }}
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+        with:
+          version: "latest"
+      - name: Build sdist and wheel
+        run: uv build --project server
+      - uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: server/dist/
+      # upload-artifact already moves paths; keep dist at server/dist for
+      # the download step below.
+
+  publish:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: pypi
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist/
+      - name: Publish to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+          skip-existing: true
