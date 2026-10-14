@@ -1,0 +1,9 @@
+[project]
+name = "modal-victoriametrics-server"
+version = "0.1.4"
+description = "Single-node VictoriaMetrics on Modal: CPU-only, scale-to-zero, every endpoint Basic-Auth-gated by the binary itself"
+requires-python = ">=3.11,<3.13"
+license = "Apache-2.0"
+
+[dependency-groups]
+dev = ["pytest>=8.0", "ruff>=0.6", "modal>=0.64,<2"]

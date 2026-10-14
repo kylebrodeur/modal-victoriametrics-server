@@ -1,0 +1,10 @@
+# Operator commands, mounted by the toolkit's command host
+# (modal-toolkit/toolkit/pkg_commands.py) via ../ops.py (private package; not
+# yet in the toolkit's own fixed PACKAGES list). Inert data: the server never
+# reads it. Kind "modal" runs `uv run modal <argv...>` in this repo's checkout.
+
+[[command]]
+name = "deploy"
+summary = "deploy the writing-duo VictoriaMetrics instance"
+kind = "modal"
+argv = ["deploy", "server/app.py"]

@@ -1,0 +1,4 @@
+#!/bin/sh
+cd "$(dirname "$0")/.."
+uv run --project server ruff format --check server 2>/dev/null || uvx ruff format --check server
+uv run --project server ruff check server 2>/dev/null || uvx ruff check server
