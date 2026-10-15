@@ -7,6 +7,11 @@ the [Modal Toolkit](https://github.com/kylebrodeur/modal-toolkit) family.
 Part of the Modal Toolkit - one operator CLI (`mtk`) that runs the fleet as
 one system.
 
+## Docs
+
+- [Quickstart](docs/quickstart.md): from a new project to a deployed, authed metrics store, using the `mtk` toolkit.
+- [How-to](docs/how-to.md): day-to-day operation of the store (env knobs, writer contract, dashboard, upgrades, troubleshooting).
+
 ## What it is
 
 - One VM single-node binary behind Modal's HTTPS endpoint, storage on a
@@ -31,7 +36,7 @@ one system.
 
 ```bash
 mtk init metrics-lab && cd metrics-lab
-mtk pull vm --tag v0.1.0
+mtk pull vm --tag v0.1.2
 mtk deploy vm          # creates the secret (asks) + the Volume, then deploys
 ```
 
